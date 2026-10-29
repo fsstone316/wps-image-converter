@@ -1,0 +1,6 @@
+*.exe
+*.zip
+*.xlsx
+*.xlsm
+!source/*.syso
+.DS_Store
