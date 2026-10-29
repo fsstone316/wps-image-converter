@@ -1,0 +1,31 @@
+name: Build Windows EXE
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "source/**"
+      - ".github/workflows/build-windows.yml"
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.23"
+      - name: Test
+        working-directory: source
+        run: go test ./...
+      - name: Build
+        working-directory: source
+        run: |
+          go build -ldflags="-H windowsgui" -o ..\WPS图片转Excel.exe .
+          go build -tags cli -o ..\WPS图片转Excel_命令行.exe .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: WPS-Image-Converter-Windows64
+          path: |
+            WPS图片转Excel.exe
+            WPS图片转Excel_命令行.exe
