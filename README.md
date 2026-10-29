@@ -1,24 +1,16 @@
-# WPS Image Converter | WPS 图片转 Excel v2.9
+# WPS 图片转 Excel v2.9
 
-Windows 64 位工具，将 WPS 的 `DISPIMG` 单元格图片转换为 Microsoft Excel 可识别的标准图片。**无需安装 WPS 或 Python。**
+Windows 64 位工具：将 WPS 的 `DISPIMG` 单元格图片转换成 Microsoft Excel 兼容图片，无需安装 WPS、Python。
 
 ## 功能
+- 导入单个或多个文件、文件夹及拖放文件，设置选项后点击“开始转换”
+- 可选按原列宽统一图片宽度；保留宽高比
+- 修复图片方向、锚点与 Excel 行高兼容性
+- 处理记录列表：打开结果、定位文件夹、重命名及删除输出文件
+- 原文件不覆盖，输出 `_Office兼容.xlsx` 或 `_Office兼容.xlsm`
 
-- 文件、多文件和文件夹导入，支持拖放；**导入 → 设置选项 → 开始转换**
-- 统一图片宽度（默认按所在列宽 100%）、等比例缩放
-- 修复 WPS 图片方向、锚点定位、Excel 自动压缩行高问题
-- 文件列表、处理状态、打开结果、打开文件夹、重命名及删除输出
-- 不覆盖原文件；输出 `原文件名_Office兼容.xlsx`（或 `.xlsm`）
-
-## 获取 Windows 可执行程序
-
-进入 [Actions → Build Windows EXE](../../actions/workflows/build-windows.yml)，选择 **Run workflow**。构建完成后下载 Artifacts 中的 `WPS-Image-Converter-Windows64`。
-
-> 源代码同步到 GitHub；预先编译的 2.9 EXE 暂未直接上传。GitHub Actions 可构建 GUI 和命令行 EXE。由于仓库目前不包含原版内嵌的二进制图标资源，Actions 构建版本可能没有自定义程序图标。
-
-## 本地编译
-
-需要 Go 1.23+，在 Windows 命令提示符或 PowerShell 运行：
+## Windows 构建
+安装 Go 1.23 或更新版本后：
 
 ```powershell
 cd source
@@ -27,6 +19,6 @@ go build -ldflags="-H windowsgui" -o ..\WPS图片转Excel.exe .
 go build -tags cli -o ..\WPS图片转Excel_命令行.exe .
 ```
 
-请使用**原始 WPS Excel 文件**进行转换。关闭“统一图片宽度”选项可以沿用 2.7 版已验证的排版方式。
+在 GitHub Actions 中手动运行 [Build Windows EXE](../../actions/workflows/build-windows.yml)，构建后从 Artifacts 下载程序。
 
-此仓库独立于 `stone-codex-skills`，未经用户提供的项目 Excel 文件均未上传。
+**注意**：仓库尚未包含原版 EXE 的图标资源文件，自动构建版本可能不显示自定义图标；2.9 原版完整绿色包仍可从聊天附件获取。
